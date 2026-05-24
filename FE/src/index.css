@@ -1,0 +1,23 @@
+@import "tailwindcss";
+/* @import "tw-animate-css"; */
+
+:root {
+  --text: #475569;
+  --text-h: #0f172a;
+
+  --bg: #0f172a;
+  --card-bg: #111827;
+  --accent: #22c55e;
+  --text-h: #ffffff;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+
+  --accent-bg: rgba(37, 99, 235, 0.1);
+  --accent-border: rgba(37, 99, 235, 0.35);
+
+  --success: #10b981;
+
+  --shadow:
+    rgba(0, 0, 0, 0.08) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.04) 0 4px 6px -2px;
+}
