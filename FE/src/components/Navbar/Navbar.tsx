@@ -1,8 +1,30 @@
 import { useState } from "react";
 import { Menu, X, ShoppingCart, User, Search } from "lucide-react";
+import { Link } from "react-router-dom";
+import CategoryDropdown from "./CategoryDropdown";
+
+const mobileCategories = [
+  {
+    name: "Football",
+    items: ["Football Shoes", "Jerseys", "Footballs", "Shin Guards"],
+  },
+  {
+    name: "Running",
+    items: ["Running Shoes", "Apparel", "Sport Watches", "Water Bottles"],
+  },
+  {
+    name: "Basketball",
+    items: ["Basketball Shoes", "Jerseys", "Basketballs"],
+  },
+  {
+    name: "Gym",
+    items: ["Gym Gloves", "Resistance Bands", "Gym Wear"],
+  },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
@@ -27,25 +49,13 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <nav className="hidden items-center gap-8 md:flex">
           <a
-            href="#"
+            href="/"
             className="text-sm font-medium text-slate-300 transition hover:text-lime-400"
           >
             Home
           </a>
 
-          <a
-            href="#"
-            className="text-sm font-medium text-slate-300 transition hover:text-lime-400"
-          >
-            Products
-          </a>
-
-          <a
-            href="#"
-            className="text-sm font-medium text-slate-300 transition hover:text-lime-400"
-          >
-            Categories
-          </a>
+          <CategoryDropdown />
 
           <a
             href="#"
@@ -89,30 +99,61 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         className={`overflow-hidden transition-all duration-300 md:hidden ${
-          open ? "max-h-[500px]" : "max-h-0"
+          open ? "max-h-125" : "max-h-0"
         }`}
       >
         <div className="space-y-1 border-t border-slate-800 bg-slate-950 px-4 py-4">
           <a
-            href="#"
+            href="/"
             className="block rounded-xl px-4 py-3 text-slate-300 transition hover:bg-slate-900 hover:text-lime-400"
           >
             Home
           </a>
 
-          <a
-            href="#"
-            className="block rounded-xl px-4 py-3 text-slate-300 transition hover:bg-slate-900 hover:text-lime-400"
-          >
-            Products
-          </a>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/60">
+            <button
+              onClick={() => setCategoryOpen(!categoryOpen)}
+              className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-slate-300 transition hover:bg-slate-900 hover:text-lime-400"
+            >
+              <span>Categories</span>
+              <span
+                className={`text-sm transition ${
+                  categoryOpen ? "rotate-180 text-lime-400" : ""
+                }`}
+              >
+                ▼
+              </span>
+            </button>
 
-          <a
-            href="#"
-            className="block rounded-xl px-4 py-3 text-slate-300 transition hover:bg-slate-900 hover:text-lime-400"
-          >
-            Categories
-          </a>
+            <div
+              className={`overflow-hidden border-t border-slate-800 transition-all duration-300 ease-in-out ${
+                categoryOpen ? "max-h-56" : "max-h-0"
+              }`}
+            >
+              <div className="max-h-56 space-y-3 overflow-y-auto px-4 py-3 pr-2">
+                {mobileCategories.map((category) => (
+                  <div key={category.name}>
+                    <p className="mb-2 text-sm font-semibold text-lime-400">
+                      {category.name}
+                    </p>
+
+                    <div className="ml-2 space-y-1">
+                      {category.items.map((item) => (
+                        <Link
+                          key={item}
+                          to={`/category/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                          className="block rounded-lg px-2 py-1.5 text-sm text-slate-400 transition hover:bg-slate-800 hover:text-white"
+                          onClick={() => setOpen(false)}
+                        >
+                          {item}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
           <a
             href="#"

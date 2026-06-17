@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import MainLayout from "../../components/Layout/MainLayout";
+import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
 export default function Home() {
@@ -135,13 +136,15 @@ export default function Home() {
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {products.map((product) => (
-                <div
+                <Link
+                  to={`/products/${product.id}`}
                   key={product.id}
                   className="group overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 transition hover:-translate-y-2 hover:border-lime-500"
                 >
                   <div className="overflow-hidden">
                     <img
                       src={product.image}
+                      alt={product.name}
                       className="h-72 w-full object-cover transition duration-500 group-hover:scale-110"
                     />
                   </div>
@@ -158,12 +161,12 @@ export default function Home() {
                         {product.price}
                       </span>
 
-                      <button className="rounded-xl bg-lime-500 px-4 py-2 font-semibold text-black transition hover:bg-lime-400">
+                      <button className="rounded-xl bg-lime-500 px-4 py-2 font-semibold text-black">
                         Add
                       </button>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
